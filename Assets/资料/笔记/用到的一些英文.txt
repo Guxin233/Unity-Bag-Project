@@ -1,0 +1,40 @@
+Inventory 存货
+Knapsack  背包
+Chest	  箱子
+
+都有的信息
+id type name quality description maxcapacity buyprice sellprice
+消耗品 装备 武器 材料
+Consumable Equipment Weapon Material
+
+Quality
+    Common       一般         white 白色
+    Uncomman    不一般        lime 绿黄色
+    Rare         稀有         navy 深蓝色
+    Epic          史诗        magenta 品红
+    Legendary     传说        orange 橘色
+    Artifact      远古        red 红色
+
+消耗品
+hp mp
+
+装备
+strength,intellect,agility,stamina
+力量   智力     敏捷    体力
+
+Head    头
+Neck    脖子
+Chest  胸部
+Ring    戒指
+Leg  腿
+Bracer 护腕
+Boots  靴子
+Trinket 饰品
+shoulder  肩膀
+belt 腰带
+
+武器
+Mainhand    主手
+Offhand      副手
+damage
+ 
