@@ -72,4 +72,20 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 根据ID找到物品
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public Item GetItemById(int id)
+    {
+        foreach (Item item in itemList)
+        {
+            if (item.ID == id)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
 }
