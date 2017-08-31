@@ -51,6 +51,13 @@ public class ItemUI : MonoBehaviour {
             AmountText.text = "";
     }
 
+
+    public void SetItemUI(ItemUI itemUI)
+    {
+        SetItem(itemUI.Item, itemUI.Amount);
+    }
+
+
     public void AddAmount(int amount = 1)
     {
         // 更新数据
@@ -61,4 +68,26 @@ public class ItemUI : MonoBehaviour {
         else
             AmountText.text = "";
     }
+
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+
+    /// <summary>
+    /// 相对于Canvas下的位置
+    /// </summary>
+    /// <param name="position"></param>
+    public void SetLocalPosition(Vector3 position)
+    {
+        transform.localPosition = position;
+    }
+
 }

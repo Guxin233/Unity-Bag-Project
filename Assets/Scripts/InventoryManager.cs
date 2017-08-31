@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 public class InventoryManager : MonoBehaviour {
 
+    #region 单例模式
     private static InventoryManager instance;
     public static InventoryManager Instance
     {
@@ -16,17 +17,40 @@ public class InventoryManager : MonoBehaviour {
             return instance;
         }
     }
+    #endregion
 
+    #region ToolTip
     private ToolTip toolTip;
     private bool isToolTipShow = false;
     private Canvas canvas;
     private Vector2 toolTipPositionOffset = new Vector2(10, -10);
+    #endregion
+
+    #region PickedItem
+    private bool isPickedItem = false;
+    /// <summary>
+    /// 是否鼠标选中了任一物品
+    /// </summary>
+    public bool IsPickedItem
+    {
+        get { return isPickedItem; }
+        set { isPickedItem = value; }
+    }
+
+    private ItemUI pickedItem;  // 鼠标选中的物品
+    public ItemUI PickedItem
+    {
+        get { return pickedItem;  }
+    }
+    #endregion
 
     private void Start()
     {
         ParseItemJson();
         toolTip = GameObject.FindObjectOfType<ToolTip>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        pickedItem = GameObject.Find("PickedItem").GetComponent<ItemUI>();
+        pickedItem.Hide();
     }
 
     public List<Item> itemList = new List<Item>();
