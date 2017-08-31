@@ -29,7 +29,7 @@ public class InventoryManager : MonoBehaviour {
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 
-    private List<Item> itemList = new List<Item>();
+    public List<Item> itemList = new List<Item>();
     /// <summary>
     /// 解析物品Json
     /// </summary>
@@ -70,10 +70,12 @@ public class InventoryManager : MonoBehaviour {
                     item = new Equipment(id, name, type, quality, description, capacity, buyPrice, sellPrice, strength, intelligence, agility, stamina, equipType, sprite);
                     break;
                 case Item.ItemType.Weapon:
-                    // todo
+                    int damage = (int)temp["damage"].n;
+                    Weapon.WeaponType weaponType = (Weapon.WeaponType)System.Enum.Parse(typeof(Weapon.WeaponType), temp["weaponType"].str);
+                    item = new Weapon(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType);
                     break;
                 case Item.ItemType.Material:
-                    // todo
+                    item = new Material(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite);
                     break;
                 default:
                     break;

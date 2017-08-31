@@ -18,4 +18,11 @@ public class Consumable : Item {
         this.MP = mp;
     }
 
+    public override string GetToolTipText()
+    {
+        string text = base.GetToolTipText();
+        string newText = string.Format("{0}\n回血：{1} \n回蓝：{2}", text, HP, MP);
+
+        return newText;
+    }
 }

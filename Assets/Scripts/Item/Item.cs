@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using System.Text;
 
 /// <summary>
 /// 物品
@@ -28,7 +27,7 @@ public class Item {
         this.ID = id;
         this.Name = name;
         this.Type = type;
-        this.Quality = Quality;
+        this.Quality = quality;
         this.Description = description;
         this.Capacity = capacity;
         this.BuyPrice = buyPrice;
@@ -67,6 +66,43 @@ public class Item {
     /// <returns></returns>
     public virtual string GetToolTipText()
     {
-        return Name; 
+        foreach (var item in InventoryManager.Instance.itemList)
+        {
+
+        }
+       
+
+        StringBuilder sb = new StringBuilder();
+
+        string color = ""; // 不同品质的颜色
+        switch (Quality)
+        {
+            case ItemQuality.Common:
+                color = "white";
+                break;
+            case ItemQuality.Uncommon:
+                color = "lime";
+                break;
+            case ItemQuality.Rare:
+                color = "navy";
+                break;
+            case ItemQuality.Epic:
+                color = "magenta";
+                break;
+            case ItemQuality.Legendary:
+                color = "orange";
+                break;
+            case ItemQuality.Artifact:
+                color = "red";
+                break;
+            default:
+                break;
+        }
+
+        sb.Append("<color=" + color + ">" + Name + "</color>" + "\n");
+        sb.Append("购买价格：" + BuyPrice + " 出售价格：" + SellPrice + "\n");
+        sb.Append(Description + "\n");
+
+        return sb.ToString(); 
     }
 }
