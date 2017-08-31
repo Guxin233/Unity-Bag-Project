@@ -17,9 +17,16 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
+    private ToolTip toolTip;
+    private bool isToolTipShow = false;
+    private Canvas canvas;
+    private Vector2 toolTipPositionOffset = new Vector2(10, -10);
+
     private void Start()
     {
         ParseItemJson();
+        toolTip = GameObject.FindObjectOfType<ToolTip>();
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 
     private List<Item> itemList = new List<Item>();
@@ -55,7 +62,12 @@ public class InventoryManager : MonoBehaviour {
                     item = new Consumable(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp);
                     break;
                 case Item.ItemType.Equipment:
-                    // todo
+                    int strength = (int)temp["strength"].n;
+                    int intelligence = (int)temp["intelligence"].n;
+                    int agility = (int)temp["agility"].n;
+                    int stamina = (int)temp["stamina"].n;
+                    Equipment.EquipmentType equipType = (Equipment.EquipmentType)System.Enum.Parse(typeof(Equipment.EquipmentType), temp["equipType"].str);
+                    item = new Equipment(id, name, type, quality, description, capacity, buyPrice, sellPrice, strength, intelligence, agility, stamina, equipType, sprite);
                     break;
                 case Item.ItemType.Weapon:
                     // todo
@@ -67,7 +79,6 @@ public class InventoryManager : MonoBehaviour {
                     break;
             }
 
-            Debug.Log("item.id = " + item.ID + " , consumable.hp = " + ((Consumable)item).HP);
             itemList.Add(item);
         }
     }
@@ -88,4 +99,29 @@ public class InventoryManager : MonoBehaviour {
         }
         return null;
     }
+
+    // 控制提示面板的位置跟随鼠标
+    private void Update()
+    {
+        if (isToolTipShow)
+        {
+            // 相对于Canvas的位置
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
+            toolTip.SetPosition(position + toolTipPositionOffset);
+        }
+    }
+
+    public void ShowToolTip(string content)
+    {
+        isToolTipShow = true;
+        toolTip.Show(content);
+    }
+
+    public void HideToolTip()
+    {
+        isToolTipShow = false;
+        toolTip.Hide();
+    }
+
 }

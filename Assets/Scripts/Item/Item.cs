@@ -55,10 +55,18 @@ public class Item {
     {
         Common,     // 一般的
         Uncommon,   // 不一般的
-        Rare,       // 稀有的
+        Rare,       // 稀有的  
         Epic,       // 史诗的
         Legendary,  // 传说的
         Artifact,   // 远古的
     }
 
+    /// <summary>
+    /// 得到提示面板显示的内容
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetToolTipText()
+    {
+        return Name; 
+    }
 }

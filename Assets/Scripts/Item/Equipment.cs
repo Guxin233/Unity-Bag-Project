@@ -27,6 +27,7 @@ public class Equipment : Item {
     {
         Head,       // 头部
         Neck,       // 脖子
+        Chest,      // 胸部
         Ring,       // 戒指
         Leg,        // 腿部
         Bracer,     // 护腕

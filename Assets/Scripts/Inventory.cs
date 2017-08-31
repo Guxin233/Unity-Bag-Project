@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour {
         }
         else // 可以存储多个同类型的物品，数量累加
         {
-            Slot slot = FindSameTypeSlot(item);
+            Slot slot = FindSameIdSlot(item);
             if (slot != null) // 找到同类型还未满的格子，存到该格子里
             {
                 slot.StoreItem(item);
@@ -108,11 +108,11 @@ public class Inventory : MonoBehaviour {
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private Slot FindSameTypeSlot(Item item)
+    private Slot FindSameIdSlot(Item item)
     {
         foreach (Slot slot in slotList)
         {
-            if (slot.transform.childCount >= 1 && slot.GetItemType() == item.Type && slot.IsFilled() == false)
+            if (slot.transform.childCount >= 1 && slot.GetItemId() == item.ID && slot.IsFilled() == false)
             {
                 return slot;
             }

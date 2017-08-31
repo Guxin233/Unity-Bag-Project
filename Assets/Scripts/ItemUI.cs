@@ -45,7 +45,10 @@ public class ItemUI : MonoBehaviour {
         this.Amount = amount;
         // 更新UI
         ItemImage.sprite = Resources.Load<Sprite>(item.Sprite); // /Sprites/Items/hp
-        AmountText.text = amount.ToString();
+        if (Item.Capacity > 1)
+            AmountText.text = amount.ToString();
+        else
+            AmountText.text = "";
     }
 
     public void AddAmount(int amount = 1)
@@ -53,6 +56,9 @@ public class ItemUI : MonoBehaviour {
         // 更新数据
         this.Amount += amount;
         // 更新UI
-        AmountText.text = Amount.ToString();
+        if (Item.Capacity > 1)
+            AmountText.text = Amount.ToString();
+        else
+            AmountText.text = "";
     }
 }

@@ -8,7 +8,7 @@ public class Player : MonoBehaviour {
         // 按G键随机得到一个物品，放到背包里
         if (Input.GetKeyDown(KeyCode.G))
         {
-            int id = Random.Range(1, 2);
+            int id = Random.Range(1, 4); // 含小不含大
             Knapsack.Instance.StoreItem(id);
         }
 	}

@@ -13,16 +13,33 @@
         "sprite": "Sprites/Items/hp"
     },
     {
-        "id": 2,
-        "name": "蓝瓶",
-        "type": "Consumable",
-        "quality": "Common",
-        "description": "法师没蓝你还玩啥？",
-        "capacity": 10,
-        "buyPrice": 10,
-        "sellPrice": 5,
-        "hp": 0,
-        "mp": 10,
-        "sprite": "Sprites/Items/mp"
-    }
+      "id": 2,
+      "name": "蓝瓶",
+      "type": "Consumable",
+      "quality": "Common",
+      "description": "法师没蓝你还玩啥？",
+      "capacity": 10,
+      "buyPrice": 10,
+      "sellPrice": 5,
+      "hp": 0,
+      "mp": 10,
+      "sprite": "Sprites/Items/mp"
+    },
+    {
+      "id": 3,
+      "name": "胸甲",
+      "type": "Equipment",
+      "quality": "Rare",
+      "description": "这个胸甲很厉害的",
+      "capacity": 1,
+      "buyPrice": 1000,
+      "sellPrice": 500,
+      "sprite": "Sprites/Items/armor",
+      "strength": 16,
+      "intelligence": 4,
+      "agility": 9,
+      "stamina": 1,
+      "equipType": "Chest"
+  }
+
 ]

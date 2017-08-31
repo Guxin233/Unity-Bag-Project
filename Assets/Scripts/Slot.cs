@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
+using System;
 
-public class Slot : MonoBehaviour {
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler{
 
     public GameObject itemPrefab;
 
@@ -39,6 +41,16 @@ public class Slot : MonoBehaviour {
 
 
     /// <summary>
+    /// 获得当前物品槽中，存储的物品的ID
+    /// </summary>
+    /// <returns></returns>
+    public int GetItemId()
+    {
+        return transform.GetChild(0).GetComponent<ItemUI>().Item.ID;
+    }
+
+
+    /// <summary>
     /// 判断当前格子中存放的物品个数是否已满了
     /// </summary>
     /// <returns></returns>
@@ -46,5 +58,28 @@ public class Slot : MonoBehaviour {
     {
         ItemUI itemUI = transform.GetChild(0).GetComponent<ItemUI>();
         return itemUI.Amount >= itemUI.Item.Capacity;
+    }
+
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (transform.childCount > 0)
+        {
+            InventoryManager.Instance.HideToolTip();
+        }
+    }
+
+
+    /// <summary>
+    /// 鼠标移入格子，如果格子里有物品，就显示提示面板
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (transform.childCount > 0)
+        {
+            string toolTipText = transform.GetChild(0).GetComponent<ItemUI>().Item.GetToolTipText();
+            InventoryManager.Instance.ShowToolTip(toolTipText);
+        }
     }
 }
