@@ -5,12 +5,12 @@
         "type": "Consumable",
         "quality": "Common",
         "description": "不要一饮而尽啊！",
-        "capacity": 99,
+        "capacity": 10,
         "buyPrice": 10,
         "sellPrice": 5,
         "hp": 10,
         "mp": 0,
-        "sprite": "/Sprites/Items/hp"
+        "sprite": "Sprites/Items/hp"
     },
     {
         "id": 2,
@@ -18,11 +18,11 @@
         "type": "Consumable",
         "quality": "Common",
         "description": "法师没蓝你还玩啥？",
-        "capacity": 99,
+        "capacity": 10,
         "buyPrice": 10,
         "sellPrice": 5,
         "hp": 0,
         "mp": 10,
-        "sprite": "/Sprites/Items/mp"
+        "sprite": "Sprites/Items/mp"
     }
 ]

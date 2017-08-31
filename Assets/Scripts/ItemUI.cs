@@ -8,22 +8,51 @@ public class ItemUI : MonoBehaviour {
     public int Amount { get; set; }
 
     private Image itemImage;
-    private Text amountText;
-
-    private void Start()
+    private Image ItemImage
     {
-        itemImage = GetComponent<Image>();
-        amountText = GetComponentInChildren<Text>();
+        get
+        {
+            if (itemImage == null)
+            {
+                itemImage = GetComponent<Image>();
+            }
+            return itemImage;
+        }
     }
 
+    private Text amountText;
+    private Text AmountText
+    {
+        get
+        {
+            if (amountText == null)
+            {
+                amountText = GetComponentInChildren<Text>();
+            }
+            return amountText;
+        }
+    }
+
+    void Start()
+    {
+    }
+
+    // Item实例化之后调用SetItem时，还没来得及调用Start，所以itemImage和amountText要用属性访问器来初始化，不能在Start中初始化
     public void SetItem(Item item , int amount = 1)
     {
+        // 更新数据
         this.Item = item;
         this.Amount = amount;
+        // 更新UI
+        ItemImage.sprite = Resources.Load<Sprite>(item.Sprite); // /Sprites/Items/hp
+        AmountText.text = amount.ToString();
     }
 
     public void AddAmount(int amount = 1)
     {
+        // 更新数据
         this.Amount += amount;
+        // 更新UI
+        AmountText.text = Amount.ToString();
     }
 }
