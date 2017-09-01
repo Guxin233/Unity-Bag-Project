@@ -9,14 +9,27 @@ public class Inventory : MonoBehaviour {
 
     private Slot[] slotList;
 
+    private float targetAlpha = 1;
+    public float smoothing = 4; // 调节透明度变化的速度
+
+    private CanvasGroup canvasGroup;
+
 	// Use this for initialization
     public virtual void Start () {
         slotList = GetComponentsInChildren<Slot>();
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (canvasGroup.alpha != targetAlpha)
+        {
+            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, targetAlpha, smoothing * Time.deltaTime);
+            if (Mathf.Abs(canvasGroup.alpha - targetAlpha) < 0.1f)
+            {
+                canvasGroup.alpha = targetAlpha;
+            }
+        }
 	}
 
 
@@ -118,6 +131,33 @@ public class Inventory : MonoBehaviour {
             }
         }
         return null;
+    }
+
+    public void Show()
+    {
+        targetAlpha = 1;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    public void Hide()
+    {
+        targetAlpha = 0;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    /// <summary>
+    /// 改变背包/箱子的显隐状态
+    /// </summary>
+    public void DisplaySwitch()
+    {
+        if (targetAlpha == 0)
+        {
+            this.Show();
+        }
+        else
+        {
+            this.Hide();
+        }
     }
 
 }

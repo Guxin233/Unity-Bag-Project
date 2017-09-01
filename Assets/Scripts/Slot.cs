@@ -178,9 +178,16 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                         }
                     }
                 }
-                else
+                else // pickedItem.id ！= 格子里的物品id，将pickedItem与格子里的物品交换
                 {
+                    // 交换前格子里的物品及数量
+                    Item item = currentItemUI.Item;
+                    int amount = currentItemUI.Amount;
 
+                    // 手上的物品 --放到--> 格子里
+                    currentItemUI.SetItem(InventoryManager.Instance.PickedItem.Item, InventoryManager.Instance.PickedItem.Amount);
+                    // 格子里的物品 --放到--> 手上
+                    InventoryManager.Instance.PickedItem.SetItem(item, amount);
                 }
             }
         }

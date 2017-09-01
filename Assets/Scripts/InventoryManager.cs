@@ -144,6 +144,14 @@ public class InventoryManager : MonoBehaviour {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
             toolTip.SetPosition(position + toolTipPositionOffset);
         }
+
+        // 丢弃物品的条件：
+        // 手上有物品 + 按下鼠标左键 + 鼠标位置不在任何EventSystem object身上（即不在UI身上）
+        if (IsPickedItem && Input.GetMouseButton(0) && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1) == false)
+        {
+            IsPickedItem = false;
+            PickedItem.Hide();
+        }
     }
 
     public void ShowToolTip(string content)
