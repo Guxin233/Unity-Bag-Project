@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public class Inventory : MonoBehaviour {
 
-    private Slot[] slotList;
+    protected Slot[] slotList;
 
     private float targetAlpha = 1;
     public float smoothing = 4; // 调节透明度变化的速度

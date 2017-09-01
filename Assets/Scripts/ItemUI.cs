@@ -130,4 +130,18 @@ public class ItemUI : MonoBehaviour {
         transform.localPosition = position;
     }
 
+
+    /// <summary>
+    /// 当前物品跟另一个物品交换显示，用于交换手上与格子里的物品
+    /// </summary>
+    /// <param name="itemUI"></param>
+    public void Exchange(ItemUI itemUI)
+    {
+        // 记录交换前的内容
+        Item itemTemp = itemUI.Item;
+        int amountTemp = itemUI.Amount;
+        // 交换显示
+        itemUI.SetItem(this.Item, this.Amount);
+        this.SetItem(itemTemp, amountTemp);
+    }
 }

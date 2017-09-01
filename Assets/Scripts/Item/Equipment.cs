@@ -25,6 +25,7 @@ public class Equipment : Item {
 
     public enum EquipmentType
     {
+        None,
         Head,       // 头部
         Neck,       // 脖子
         Chest,      // 胸部

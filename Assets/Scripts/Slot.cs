@@ -91,8 +91,28 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// 物品槽内，鼠标按下
     /// </summary>
     /// <param name="eventData"></param>
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
+        // 右键直接穿上装备
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (transform.childCount > 0)
+            {
+                ItemUI currentitemUI = transform.GetChild(0).GetComponent<ItemUI>();
+                if (currentitemUI.Item is Equipment || currentitemUI.Item is Weapon)
+                {
+                    Character.Instance.PutOn(currentitemUI.Item);
+                    currentitemUI.ReduceAmount(1);
+                    if (currentitemUI.Amount <= 0)
+                    {
+                        Destroy(currentitemUI.gameObject);
+                    }
+                }
+            }
+        }
+
+
+        if (eventData.button != PointerEventData.InputButton.Left) return;
         /*
          * 格子是空的：
          *      1、IsPickedItem == true，则把拖拽的物品放入格子里
