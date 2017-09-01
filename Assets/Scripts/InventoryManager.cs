@@ -150,4 +150,26 @@ public class InventoryManager : MonoBehaviour {
         toolTip.Hide();
     }
 
+    /// <summary>
+    /// 捡起背包一个格子中的全部数量的物品
+    /// 物品（全部数量）放到鼠标上。
+    /// </summary>
+    /// <param name="itemUI"></param>
+    public void PickUpItem(ItemUI itemUI)
+    {
+        PickedItem.SetItem(itemUI.Item, itemUI.Amount);
+        isPickedItem = true;
+    }
+
+    /// <summary>
+    /// 捡起背包一个格子中的部分数量的物品
+    /// 把物品（指定数量）放到鼠标上。
+    /// </summary>
+    /// <param name="itemUI"></param>
+    public void PickUpItem(ItemUI itemUI, int amount)
+    {
+        PickedItem.SetItem(itemUI.Item, amount);
+        isPickedItem = true;
+    }
+
 }

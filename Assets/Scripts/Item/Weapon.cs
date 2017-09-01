@@ -39,7 +39,7 @@ public class Weapon : Item {
                 break;
         }
 
-        string newText = string.Format("{0}\n武器类型：{0}\n 攻击力：{1} \n", text, weaponType, Damage);
+        string newText = string.Format("{0}\n武器类型：{1} \n攻击力：{2} \n", text, weaponType, Damage);
 
         return newText;
     }

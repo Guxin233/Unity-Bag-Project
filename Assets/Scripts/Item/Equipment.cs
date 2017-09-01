@@ -78,7 +78,7 @@ public class Equipment : Item {
         }
 
 
-        string newText = string.Format("{0}\n装备类型：{1} 力量：{2} \n智力：{3} \n敏捷：{4} \n体力：{5}", text, equipType, Strength, Intelligence, Agility, Stamina);
+        string newText = string.Format("{0}\n装备类型：{1} \n力量：{2} \n智力：{3} \n敏捷：{4} \n体力：{5}", text, equipType, Strength, Intelligence, Agility, Stamina);
 
         return newText;
     }

@@ -51,13 +51,6 @@ public class ItemUI : MonoBehaviour {
             AmountText.text = "";
     }
 
-
-    public void SetItemUI(ItemUI itemUI)
-    {
-        SetItem(itemUI.Item, itemUI.Amount);
-    }
-
-
     public void AddAmount(int amount = 1)
     {
         // 更新数据
@@ -69,6 +62,16 @@ public class ItemUI : MonoBehaviour {
             AmountText.text = "";
     }
 
+    public void SetAmount(int amount)
+    {
+        // 更新数据
+        this.Amount = amount;
+        // 更新UI
+        if (Item.Capacity > 1)
+            AmountText.text = Amount.ToString();
+        else
+            AmountText.text = "";
+    }
 
     public void Show()
     {

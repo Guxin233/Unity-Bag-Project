@@ -118,12 +118,21 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             {
                 if (Input.GetKey(KeyCode.LeftControl)) // 按下Ctrl键，取出一半物品（向上取整）放到pickedItem上   
                 {
-
+                    int amountPicked = (currentItemUI.Amount + 1) / 2;
+                    InventoryManager.Instance.PickUpItem(currentItemUI, amountPicked);
+                    int amountRemained = currentItemUI.Amount - amountPicked;
+                    if (amountRemained <= 0) // 格子里是否还有剩余个数
+                    {
+                        Destroy(currentItemUI.gameObject); // 销毁格子里的物品
+                    }
+                    else
+                    {
+                        currentItemUI.SetAmount(amountRemained);
+                    }
                 }
                 else // 没按Ctrl键，取出所有物品放到pickedItem上   
                 {
-                    InventoryManager.Instance.PickedItem.SetItemUI(currentItemUI);
-                    InventoryManager.Instance.IsPickedItem = true;
+                    InventoryManager.Instance.PickUpItem(currentItemUI);
                     Destroy(currentItemUI.gameObject); // 销毁格子里的物品
                 }
             }
