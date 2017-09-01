@@ -29,7 +29,7 @@ public class InventoryManager : MonoBehaviour {
     #region PickedItem
     private bool isPickedItem = false;
     /// <summary>
-    /// 是否鼠标选中了任一物品
+    /// 是否鼠标选中了任一物品，是否正在拾取物品
     /// </summary>
     public bool IsPickedItem
     {
@@ -176,4 +176,17 @@ public class InventoryManager : MonoBehaviour {
         this.toolTip.Hide();
     }
 
+    /// <summary>
+    /// 手上拾取的物品数量-N
+    /// </summary>
+    /// <param name="amount"></param>
+    public void RemoveItem(int amount = 1)
+    {
+        PickedItem.ReduceAmount(amount);
+        if (PickedItem.Amount <= 0) // 手上已经没有物品了
+        {
+            IsPickedItem = false;
+            PickedItem.Hide();
+        }
+    }
 }

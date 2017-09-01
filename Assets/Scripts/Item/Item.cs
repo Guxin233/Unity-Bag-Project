@@ -66,12 +66,6 @@ public class Item {
     /// <returns></returns>
     public virtual string GetToolTipText()
     {
-        foreach (var item in InventoryManager.Instance.itemList)
-        {
-
-        }
-       
-
         StringBuilder sb = new StringBuilder();
 
         string color = ""; // 不同品质的颜色

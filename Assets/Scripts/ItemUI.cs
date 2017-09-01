@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class ItemUI : MonoBehaviour {
 
-    public Item Item { get; set; }
-    public int Amount { get; set; }
+    public Item Item { get; private set; }
+    public int Amount { get; private set; }
 
     private Image itemImage;
     private Image ItemImage
@@ -67,10 +67,27 @@ public class ItemUI : MonoBehaviour {
         transform.localScale = animScale;
     }
 
+    /// <summary>
+    /// 物品数量增加
+    /// </summary>
+    /// <param name="amount"></param>
     public void AddAmount(int amount = 1)
     {
         // 更新数据
         this.Amount += amount;
+        // 更新UI
+        if (Item.Capacity > 1)
+            AmountText.text = Amount.ToString();
+        else
+            AmountText.text = "";
+        // 放大动画
+        transform.localScale = animScale;
+    }
+
+    public void ReduceAmount(int amount = 1)
+    {
+        // 更新数据
+        this.Amount -= amount;
         // 更新UI
         if (Item.Capacity > 1)
             AmountText.text = Amount.ToString();
