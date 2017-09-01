@@ -23,6 +23,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             GameObject go = Instantiate(itemPrefab);
             go.transform.SetParent(this.transform);
             go.transform.localPosition = Vector3.zero;
+            go.transform.localScale = Vector3.one;
 
             go.GetComponent<ItemUI>().SetItem(item);
         }
@@ -119,7 +120,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 if (Input.GetKey(KeyCode.LeftControl)) // 按下Ctrl键，取出一半物品（向上取整）放到pickedItem上   
                 {
                     int amountPicked = (currentItemUI.Amount + 1) / 2;
-                    InventoryManager.Instance.PickUpItem(currentItemUI, amountPicked);
+                    InventoryManager.Instance.PickUpItem(currentItemUI.Item, amountPicked);
                     int amountRemained = currentItemUI.Amount - amountPicked;
                     if (amountRemained <= 0) // 格子里是否还有剩余个数
                     {
@@ -132,7 +133,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 }
                 else // 没按Ctrl键，取出所有物品放到pickedItem上   
                 {
-                    InventoryManager.Instance.PickUpItem(currentItemUI);
+                    InventoryManager.Instance.PickUpItem(currentItemUI.Item, currentItemUI.Amount);
                     Destroy(currentItemUI.gameObject); // 销毁格子里的物品
                 }
             }

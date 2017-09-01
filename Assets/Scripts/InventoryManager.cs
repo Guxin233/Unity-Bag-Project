@@ -126,10 +126,18 @@ public class InventoryManager : MonoBehaviour {
         return null;
     }
 
-    // 控制提示面板的位置跟随鼠标
+
     private void Update()
     {
-        if (isToolTipShow)
+        // 拾取的物品跟随鼠标
+        if (IsPickedItem)
+        {
+            // 相对于Canvas的位置
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
+            PickedItem.SetLocalPosition(position);
+        }
+        else if (isToolTipShow) // 控制提示面板的位置跟随鼠标
         {
             // 相对于Canvas的位置
             Vector2 position;
@@ -140,6 +148,10 @@ public class InventoryManager : MonoBehaviour {
 
     public void ShowToolTip(string content)
     {
+        if (IsPickedItem)
+        {
+            return;
+        }
         isToolTipShow = true;
         toolTip.Show(content);
     }
@@ -151,25 +163,17 @@ public class InventoryManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// 捡起背包一个格子中的全部数量的物品
-    /// 物品（全部数量）放到鼠标上。
+    /// 捡起背包一个格子中的指定数量的物品放到鼠标上。
     /// </summary>
-    /// <param name="itemUI"></param>
-    public void PickUpItem(ItemUI itemUI)
+    /// <param name="item"></param>
+    /// <param name="amount">指定个数，是部分或全部数量</param>
+    public void PickUpItem(Item item, int amount)
     {
-        PickedItem.SetItem(itemUI.Item, itemUI.Amount);
-        isPickedItem = true;
-    }
+        PickedItem.SetItem(item, amount);
+        PickedItem.Show();
 
-    /// <summary>
-    /// 捡起背包一个格子中的部分数量的物品
-    /// 把物品（指定数量）放到鼠标上。
-    /// </summary>
-    /// <param name="itemUI"></param>
-    public void PickUpItem(ItemUI itemUI, int amount)
-    {
-        PickedItem.SetItem(itemUI.Item, amount);
-        isPickedItem = true;
+        IsPickedItem = true;
+        this.toolTip.Hide();
     }
 
 }

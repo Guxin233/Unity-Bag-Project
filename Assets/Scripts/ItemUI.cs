@@ -33,8 +33,22 @@ public class ItemUI : MonoBehaviour {
         }
     }
 
-    void Start()
+    private float targetScale = 1.0f;
+    private Vector3 animScale = new Vector3(1.4f, 1.4f, 1.4f); // 缩放动画，缩放的大小
+    public float smoothing = 4.0f; // 缩放动画的执行速度
+
+    private void Update()
     {
+        if (transform.localScale.x != targetScale)
+        {
+            // 缩放动画
+            float scale = Mathf.Lerp(transform.localScale.x, targetScale, Time.deltaTime * smoothing);
+            transform.localScale = new Vector3(scale, scale, scale);
+            if (Mathf.Abs(transform.localScale.x - targetScale) < 0.02f)
+            {
+                transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+            }
+        }
     }
 
     // Item实例化之后调用SetItem时，还没来得及调用Start，所以itemImage和amountText要用属性访问器来初始化，不能在Start中初始化
@@ -49,6 +63,8 @@ public class ItemUI : MonoBehaviour {
             AmountText.text = amount.ToString();
         else
             AmountText.text = "";
+        // 放大动画
+        transform.localScale = animScale;
     }
 
     public void AddAmount(int amount = 1)
@@ -60,6 +76,8 @@ public class ItemUI : MonoBehaviour {
             AmountText.text = Amount.ToString();
         else
             AmountText.text = "";
+        // 放大动画
+        transform.localScale = animScale;
     }
 
     public void SetAmount(int amount)
@@ -71,6 +89,8 @@ public class ItemUI : MonoBehaviour {
             AmountText.text = Amount.ToString();
         else
             AmountText.text = "";
+        // 放大动画
+        transform.localScale = animScale;
     }
 
     public void Show()
