@@ -12,17 +12,18 @@ public class EquipmentSlot : Slot {
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+
         // 右键直接卸下装备
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (!InventoryManager.Instance.IsPickedItem && transform.childCount > 0)
             {
-                ItemUI currentitemUI = transform.GetChild(0).GetComponent<ItemUI>();
-
                 // 装备从装备槽移动到背包中
+                ItemUI currentitemUI = transform.GetChild(0).GetComponent<ItemUI>();
                 Item tempItem = currentitemUI.Item;
-                transform.parent.SendMessage("PutOff", currentitemUI.Item);
-                Destroy(currentitemUI.gameObject);
+
+                DestroyImmediate(currentitemUI.gameObject);
+                transform.parent.SendMessage("PutOff", tempItem);
                 InventoryManager.Instance.HideToolTip();
             }
         }
@@ -38,6 +39,7 @@ public class EquipmentSlot : Slot {
          *      当前装备槽无装备，不作处理
          */
 
+        bool needUpdateProperty = false; // 是否需要更新能力值
         if (InventoryManager.Instance.IsPickedItem) // 手上有东西
         {
             ItemUI pickedItem = InventoryManager.Instance.PickedItem;
@@ -48,6 +50,7 @@ public class EquipmentSlot : Slot {
                 {
                     // 交换手上的物品和格子里的物品
                     InventoryManager.Instance.PickedItem.Exchange(currentItemUI);
+                    needUpdateProperty = true;
                 }
             }
             else // 当前装备槽无装备，判断物品类型能不能放进装备槽
@@ -58,6 +61,7 @@ public class EquipmentSlot : Slot {
                     this.StoreItem(InventoryManager.Instance.PickedItem.Item);
                     // 手上的装备减少（一般来说装备Capacity为1，移除一个就没了）
                     InventoryManager.Instance.RemoveItem(1);
+                    needUpdateProperty = true;
                 }
             }
         }
@@ -68,8 +72,16 @@ public class EquipmentSlot : Slot {
                 ItemUI currentItemUI = transform.GetChild(0).GetComponent<ItemUI>();
                 InventoryManager.Instance.PickUpItem(currentItemUI.Item, currentItemUI.Amount);
                 Destroy(currentItemUI.gameObject);
+                needUpdateProperty = true;
             }
         }
+
+        // 更新角色能力值
+        if (needUpdateProperty)
+        {
+            transform.parent.SendMessage("UpdatePropertyText");
+        }
+
     }
 
     /// <summary>

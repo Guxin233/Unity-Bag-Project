@@ -44,9 +44,13 @@ public class InventoryManager : MonoBehaviour {
     }
     #endregion
 
+    private void Awake()
+    {
+        ParseItemJson(); // 由于Vendor的Start中需要ParseItemJson先执行，所以该方法不能写在Start中
+    }
+
     private void Start()
     {
-        ParseItemJson();
         toolTip = GameObject.FindObjectOfType<ToolTip>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         pickedItem = GameObject.Find("PickedItem").GetComponent<ItemUI>();
