@@ -79,7 +79,7 @@ public class EquipmentSlot : Slot {
         // 更新角色能力值
         if (needUpdateProperty)
         {
-            transform.parent.SendMessage("UpdatePropertyText");
+            transform.parent.parent.SendMessage("UpdatePropertyText");
         }
 
     }

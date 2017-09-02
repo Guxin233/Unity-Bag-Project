@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -32,6 +33,15 @@ public class Player : MonoBehaviour {
     }
     #endregion
 
+    private int coinAmount = 100; // 金币
+    private Text coinText;
+
+    private void Start()
+    {
+        coinText = GameObject.Find("Coin").GetComponentInChildren<Text>();
+        coinText.text = coinAmount.ToString();
+    }
+
     // Update is called once per frame
     void Update () {
         // G键 随机得到一个物品放到背包里
@@ -60,4 +70,35 @@ public class Player : MonoBehaviour {
         }
 
     }
+
+    /// <summary>
+    /// 消费金币
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns>是否付费成功</returns>
+    public bool ConsumeCoin(int amount)
+    {
+        if (coinAmount >= amount)
+        {
+            // 更新数据
+            coinAmount -= amount;
+            // 更新UI
+            coinText.text = coinAmount.ToString();
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 获得金币
+    /// </summary>
+    /// <param name="amount"></param>
+    public void EarnCoin(int amount)
+    {
+        // 更新数据
+        coinAmount += amount;
+        // 更新UI
+        coinText.text = coinAmount.ToString();
+    }
+
 }
