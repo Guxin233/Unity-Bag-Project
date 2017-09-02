@@ -96,17 +96,20 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         // 右键直接穿上装备
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (transform.childCount > 0)
+            if (!InventoryManager.Instance.IsPickedItem && transform.childCount > 0)
             {
                 ItemUI currentitemUI = transform.GetChild(0).GetComponent<ItemUI>();
                 if (currentitemUI.Item is Equipment || currentitemUI.Item is Weapon)
                 {
-                    Character.Instance.PutOn(currentitemUI.Item);
+                    // 装备从背包移动到装备槽中
+                    Item tempItem = currentitemUI.Item;
                     currentitemUI.ReduceAmount(1);
                     if (currentitemUI.Amount <= 0)
                     {
-                        Destroy(currentitemUI.gameObject);
+                        DestroyImmediate(currentitemUI.gameObject);
+                        InventoryManager.Instance.HideToolTip();
                     }
+                    Character.Instance.PutOn(tempItem);
                 }
             }
         }

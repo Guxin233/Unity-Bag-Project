@@ -12,6 +12,22 @@ public class EquipmentSlot : Slot {
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+        // 右键直接卸下装备
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (!InventoryManager.Instance.IsPickedItem && transform.childCount > 0)
+            {
+                ItemUI currentitemUI = transform.GetChild(0).GetComponent<ItemUI>();
+
+                // 装备从装备槽移动到背包中
+                Item tempItem = currentitemUI.Item;
+                transform.parent.SendMessage("PutOff", currentitemUI.Item);
+                Destroy(currentitemUI.gameObject);
+                InventoryManager.Instance.HideToolTip();
+            }
+        }
+
+
         if (eventData.button != PointerEventData.InputButton.Left) return;
         /*
          * 手上有东西
@@ -61,7 +77,7 @@ public class EquipmentSlot : Slot {
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private bool IsItemMatchSlotType(Item item)
+    public bool IsItemMatchSlotType(Item item)
     {
         if ((item is Equipment && ((Equipment)item).EquipType == this.equipType) ||
             (item is Weapon && ((Weapon)item).WpType == this.wpType))
