@@ -1,0 +1,16 @@
+[
+  {
+    "item1ID": 15,
+    "item1Amount": 1,
+    "item2ID": 17,
+    "item2Amount":2,
+    "ResID": 13
+  },
+  {
+    "item1ID": 16,
+    "item1Amount": 1,
+    "item2ID": 17,
+    "item2Amount":5,
+    "ResID": 8
+  }
+]

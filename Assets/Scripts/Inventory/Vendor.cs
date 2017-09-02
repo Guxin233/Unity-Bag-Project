@@ -12,6 +12,7 @@ public class Vendor : Inventory {
         base.Start();
         InitShop();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        Hide();
     }
 
     /// <summary>
