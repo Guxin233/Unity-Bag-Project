@@ -7,6 +7,19 @@ using System.Collections.Generic;
 /// </summary>
 public class Forge : Inventory {
 
+    private static Forge instance;
+    public static Forge Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.Find("ForgePanel").GetComponent<Forge>();
+            }
+            return instance;
+        }
+    }
+
     private List<Formula> formulaList;
 
     public override void Start()

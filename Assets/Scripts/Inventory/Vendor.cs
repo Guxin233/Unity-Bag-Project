@@ -4,6 +4,19 @@ using System;
 
 public class Vendor : Inventory {
 
+    private static Vendor instance;
+    public static Vendor Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.Find("VendorPanel").GetComponent<Vendor>();
+            }
+            return instance;
+        }
+    }
+
     public int[] itemIdArray; // 小贩售卖的物品
     private Player player;
 

@@ -69,6 +69,18 @@ public class Player : MonoBehaviour {
             Character.Instance.DisplaySwitch();
         }
 
+        // I键 商店
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Vendor.Instance.DisplaySwitch();
+        }
+
+        // O键 锻造面板
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Forge.Instance.DisplaySwitch();
+        }
+
     }
 
     /// <summary>
