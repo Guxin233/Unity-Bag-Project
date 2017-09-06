@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 /// <summary>
 /// 管理所有的物品槽
@@ -159,5 +160,60 @@ public class Inventory : MonoBehaviour {
             this.Hide();
         }
     }
+
+    #region Save And Load
+    public void SaveInventory()
+    {
+        StringBuilder sb = new StringBuilder();
+        // 遍历格子
+        foreach (Slot slot in slotList)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                ItemUI itemUI = slot.transform.GetChild(0).GetComponent<ItemUI>();
+                sb.Append(itemUI.Item.ID + "," + itemUI.Amount + "-");
+            }
+            else
+            {
+                sb.Append("0-");
+            }
+        }
+
+        PlayerPrefs.SetString(this.gameObject.name, sb.ToString());
+    }
+
+    public void LoadInventory()
+    {
+        if (!PlayerPrefs.HasKey(this.gameObject.name))
+        {
+            return;
+        }
+
+        string str = PlayerPrefs.GetString(this.gameObject.name);
+        
+        // 拆分“-”
+        string[] itemArray = str.Split('-');
+        for (int i = 0; i < itemArray.Length - 1; i++) // 根据'-'分割后，最后一位'-'后面会分割成一个空字符串，即分割出来的子串数量要比数组长度多一个
+        {
+            string itemStr = itemArray[i];
+            if (!itemStr.Equals("0"))
+            {
+                string[] temp = itemStr.Split(',');
+                int id = int.Parse(temp[0]);
+                int amount = int.Parse(temp[1]);
+
+                Item item = InventoryManager.Instance.GetItemById(id);
+                // 在相应的槽位中存储该物体，有几个就存入几次
+                for (int j = 0; j < amount; j++)
+                {
+                    slotList[i].StoreItem(item);
+                }
+
+            }
+        }
+
+    }
+
+    #endregion
 
 }

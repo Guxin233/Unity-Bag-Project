@@ -201,4 +201,27 @@ public class InventoryManager : MonoBehaviour {
             PickedItem.Hide();
         }
     }
+
+
+    // 保存所有的面板信息
+    public void SaveInventory()
+    {
+        Knapsack.Instance.SaveInventory();
+        Chest.Instance.SaveInventory();
+        Character.Instance.SaveInventory();
+        //Vendor.Instance.SaveInventory();
+        Forge.Instance.SaveInventory();
+    }
+
+    // 加载所有的面板信息
+    public void LoadInventory()
+    {
+        Knapsack.Instance.LoadInventory();
+        Chest.Instance.LoadInventory();
+        Character.Instance.LoadInventory();
+        //Vendor.Instance.LoadInventory();
+        Forge.Instance.LoadInventory();
+    }
+
+
 }
