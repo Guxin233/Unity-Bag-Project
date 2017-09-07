@@ -34,6 +34,16 @@ public class Player : MonoBehaviour {
     #endregion
 
     private int coinAmount = 100; // 金币
+    public int CoinAmount
+    {
+        get { return coinAmount; }
+        set
+        {
+            coinAmount = value;
+            coinText.text = coinAmount.ToString();
+        }
+    }
+
     private Text coinText;
 
     private void Start()

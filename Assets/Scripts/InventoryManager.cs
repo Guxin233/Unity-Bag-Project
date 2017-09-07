@@ -186,6 +186,11 @@ public class InventoryManager : MonoBehaviour {
 
         IsPickedItem = true;
         this.toolTip.Hide();
+
+        // 不用等到下一帧，在当前这一帧就让拾取的物品移动到鼠标位置
+        Vector2 position;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
+        PickedItem.SetLocalPosition(position);
     }
 
     /// <summary>
@@ -211,6 +216,7 @@ public class InventoryManager : MonoBehaviour {
         Character.Instance.SaveInventory();
         //Vendor.Instance.SaveInventory();
         Forge.Instance.SaveInventory();
+        PlayerPrefs.SetInt("CoinAmount", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().CoinAmount);
     }
 
     // 加载所有的面板信息
@@ -221,6 +227,11 @@ public class InventoryManager : MonoBehaviour {
         Character.Instance.LoadInventory();
         //Vendor.Instance.LoadInventory();
         Forge.Instance.LoadInventory();
+        if (PlayerPrefs.HasKey("CoinAmount"))
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().CoinAmount = PlayerPrefs.GetInt("CoinAmount");
+        }
+        
     }
 
 
